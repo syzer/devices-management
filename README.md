@@ -33,3 +33,9 @@ simulated servers take: 3x100Mb RAM
 They are just for test, so small memory leaks are possible.
 
 Runtime: on slow (400$) machine is ~80 sec
+
+Why
+===
+
+Doable
+Use of async and non blocking IO.
