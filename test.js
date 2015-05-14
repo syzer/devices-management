@@ -27,8 +27,7 @@ var todos = Array.apply(null, {length: CONNECTIONS_NO})
             });
     });
 
-q
-    .all(todos)
+q.all(todos)
     .then(function (res) {
         console.log(res.length);
         console.timeEnd('microBenchmark');
@@ -36,9 +35,10 @@ q
     })
     .catch(function (err) {
         return console.warn(err);
-    })
+    });
 
 console.log('Hey!.. nothing is blocked!');
-setTimeout(function(){
+
+setTimeout(function () {
     console.log("Seriously I'm not blocked .. could serve web pages.. or sth..")
 }, 5000);
