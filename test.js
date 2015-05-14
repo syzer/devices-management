@@ -4,30 +4,28 @@
 var q = require('bluebird');
 var exec = require('node-ssh-exec');
 var execAsync = q.promisify(exec);
-var command = 'ls -alh';
 var assert = require('assert');
+
 var CONNECTIONS_NO = 1000;
+var command = 'ls -alh';
 
 console.time('microBenchmark');
 
-// AKA unfold
-var todos = [];
-for (var i = 0; i < CONNECTIONS_NO; i++) {
-    var port = 22 + Math.floor(Math.random() * 3);
-    todos.push(execAsync({
-        host: '127.0.0.1',
-        port: port,
-        username: 'foo',
-        password: 'bar',
-        readyTimeout: 99999
-    }, command));
-}
-
-todos = todos.map(function (todo, i) {
-    return todo.catch(function (err) {
-        return console.warn('failed', i);
-    })
-});
+// prepare workflow
+var todos = Array.apply(null, {length: CONNECTIONS_NO})
+    .map(function (el, i) {
+        var port = 22 + Math.floor(Math.random() * 3);
+        return execAsync({
+            host: '127.0.0.1',
+            port: port,
+            username: 'foo',
+            password: 'bar',
+            readyTimeout: 99999
+        }, command)
+            .catch(function (err) {
+                return console.warn('failed', i);
+            });
+    });
 
 q
     .all(todos)
@@ -41,3 +39,6 @@ q
     })
 
 console.log('Hey!.. nothing is blocked!');
+setTimeout(function(){
+    console.log("Seriously I'm not blocked .. could serve web pages.. or sth..")
+}, 5000);
