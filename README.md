@@ -7,7 +7,9 @@ Usage
 =====
 
 - Install node
-- npm i
+- clone the repo:
+    `git clone https://github.com/syzer/devices-management.git`
+- `npm install`
 - start 3 tests servers using:
 `node server1 & node server2 & node server3`
 - or start 1 test server using
