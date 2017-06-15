@@ -1,6 +1,8 @@
 Devices management
 ==================
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/syzer/devices-management.svg)](https://greenkeeper.io/)
+
 This is Proof of concept of management over SSH of 1000 devices
 
 Usage
